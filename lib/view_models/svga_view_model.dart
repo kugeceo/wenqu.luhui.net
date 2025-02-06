@@ -96,42 +96,41 @@ class SVGAViewModel extends ChangeNotifier {
       );
       print('SVGA文件解析完成');
 
-      _fps = 30;
-      _duration = (videoItem.images?.length ?? 0) / _fps;
+      final images = videoItem.images;
+      
+      _fps = videoItem.params.fps.toDouble();
+      _duration = images.length / _fps;
       print('FPS: $_fps, 持续时间: $_duration秒');
 
       final List<File> tempFrames = [];
 
-      final images = videoItem.images;
-      if (images != null) {
-        print('开始提取帧图片，总数：${images.length}');
-        var index = 0;
-        for (var entry in images.entries) {
-          if (entry.value.isNotEmpty) {
-            try {
-              final codec = await instantiateImageCodec(Uint8List.fromList(entry.value));
-              final frame = await codec.getNextFrame();
-              final byteData = await frame.image.toByteData(format: ImageByteFormat.png);
+      print('开始提取帧图片，总数：${images.length}');
+      var index = 0;
+      for (var entry in images.entries) {
+        if (entry.value.isNotEmpty) {
+          try {
+            final codec = await instantiateImageCodec(Uint8List.fromList(entry.value));
+            final frame = await codec.getNextFrame();
+            final byteData = await frame.image.toByteData(format: ImageByteFormat.png);
+            
+            if (byteData != null) {
+              final frameFile = File('${framesDir.path}/frame_$index.png');
+              await frameFile.writeAsBytes(byteData.buffer.asUint8List());
+              print('成功写入帧 $index 到文件: ${frameFile.path}');
               
-              if (byteData != null) {
-                final frameFile = File('${framesDir.path}/frame_$index.png');
-                await frameFile.writeAsBytes(byteData.buffer.asUint8List());
-                print('成功写入帧 $index 到文件: ${frameFile.path}');
-                
-                _memoryUsage += (frame.image.width * frame.image.height * 4) / (1024 * 1024);
-                print('当前帧内存占用: ${(frame.image.width * frame.image.height * 4) / (1024 * 1024)} MB');
-                
-                if (await frameFile.exists()) {
-                  tempFrames.add(frameFile);
-                  print('添加第 ${index + 1} 帧到临时数组，文件大小: ${await frameFile.length()} bytes');
-                } else {
-                  print('警告：帧文件未成功创建: ${frameFile.path}');
-                }
-                index++;
+              _memoryUsage += (frame.image.width * frame.image.height * 4) / (1024 * 1024);
+              print('当前帧内存占用: ${(frame.image.width * frame.image.height * 4) / (1024 * 1024)} MB');
+              
+              if (await frameFile.exists()) {
+                tempFrames.add(frameFile);
+                print('添加第 ${index + 1} 帧到临时数组，文件大小: ${await frameFile.length()} bytes');
+              } else {
+                print('警告：帧文件未成功创建: ${frameFile.path}');
               }
-            } catch (e) {
-              print('处理帧 $index 时出错: $e');
+              index++;
             }
+          } catch (e) {
+            print('处理帧 $index 时出错: $e');
           }
         }
       }
