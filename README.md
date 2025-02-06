@@ -1,16 +1,9 @@
 # svga_previewer
 
-A new Flutter project.
+一款快速预览SVGA的桌面小工具。
 
-## Getting Started
+![example](https://github.com/Rogue24/JPCover/raw/master/svga_previewer/cover.jpg)
 
-This project is a starting point for a Flutter application.
+- 支持双击、拖拽、选择的方式以打开SVGA文件直接预览。
+- 使用`Flutter`+`Cursor`开发，主要支持MacOS平台（代码质量有待优化，毕竟用的AI快速开发🤖）。
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
