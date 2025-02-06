@@ -9,10 +9,10 @@ import 'dart:typed_data';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/rendering.dart' as ui;
-import 'package:flutter/rendering.dart';
 import 'package:window_manager/window_manager.dart';
 import 'single_instance.dart';
 import 'package:flutter/services.dart';
+import 'dart:ui' as ui show Image, decodeImageFromList;
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -524,22 +524,55 @@ class PreviewArea extends StatelessWidget {
                       Positioned(
                         right: 8,
                         top: 8,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.7),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Text(
-                            '当前帧: ${viewModel.currentFrameIndex + 1}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 6,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.7),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  FutureBuilder<ui.Image>(
+                                    future: ui.decodeImageFromList(viewModel.currentFrame!.readAsBytesSync()),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        final image = snapshot.data!;
+                                        return Column(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            Text(
+                                              'frame_${viewModel.currentFrameIndex}.png',
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              '当前帧: ${viewModel.currentFrameIndex + 1}  •  尺寸: ${image.width} × ${image.height}',
+                                              style: const TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 12,
+                                              ),
+                                            ),
+                                          ],
+                                        );
+                                      }
+                                      return const SizedBox();
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
                   ],
