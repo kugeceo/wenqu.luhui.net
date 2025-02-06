@@ -1,4 +1,4 @@
-# flutter_application_2
+# svga_previewer
 
 A new Flutter project.
 
