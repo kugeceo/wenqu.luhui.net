@@ -99,7 +99,7 @@ class SVGAViewModel extends ChangeNotifier {
       final images = videoItem.images;
       
       _fps = videoItem.params.fps.toDouble();
-      _duration = images.length / _fps;
+      _duration = videoItem.params.frames / _fps;
       print('FPS: $_fps, 持续时间: $_duration秒');
 
       final List<File> tempFrames = [];
