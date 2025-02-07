@@ -76,6 +76,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // 是否显示右上角的debug图标
       title: 'SVGA预览器',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -174,7 +175,7 @@ class MyHomePage extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    '总帧数: ${viewModel.frames.length}',
+                                    '总帧数: ${viewModel.totalFrames}',
                                     style: const TextStyle(color: Colors.grey),
                                   ),
                                 ],

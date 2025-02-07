@@ -61,7 +61,7 @@ class FramePreview extends StatelessWidget {
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
-                                      '当前帧: ${viewModel.currentFrameIndex + 1}  •  尺寸: ${image.width} × ${image.height}',
+                                      '图片: ${viewModel.currentFrameIndex + 1}  •  尺寸: ${image.width} × ${image.height}',
                                       style: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 12,

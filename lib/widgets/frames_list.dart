@@ -54,7 +54,7 @@ class FramesList extends StatelessWidget {
                       padding: const EdgeInsets.all(4),
                       color: Colors.black45,
                       child: Text(
-                        '帧 ${index + 1}',
+                        '图 ${index + 1}',
                         textAlign: TextAlign.center,
                         style: const TextStyle(fontSize: 12),
                       ),

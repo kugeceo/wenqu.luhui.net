@@ -16,6 +16,7 @@ class SVGAViewModel extends ChangeNotifier {
   double _fps = 0;  
   double _duration = 0;  
   double _memoryUsage = 0;  
+  int _totalFrames = 0;
 
   List<File> get frames => _frames;
   int get currentFrameIndex => _currentFrameIndex;
@@ -26,6 +27,7 @@ class SVGAViewModel extends ChangeNotifier {
   double get fps => _fps;
   double get duration => _duration;
   double get memoryUsage => _memoryUsage;
+  int get totalFrames => _totalFrames;
 
   // 清理所有状态
   Future<void> clearState() async {
@@ -37,6 +39,7 @@ class SVGAViewModel extends ChangeNotifier {
     _fps = 0;
     _duration = 0;
     _memoryUsage = 0;
+    _totalFrames = 0;
     print('内存状态已清理');
     
     try {
@@ -98,8 +101,9 @@ class SVGAViewModel extends ChangeNotifier {
 
       final images = videoItem.images;
       
+      _totalFrames = videoItem.params.frames;
       _fps = videoItem.params.fps.toDouble();
-      _duration = videoItem.params.frames / _fps;
+      _duration = _totalFrames / _fps;
       print('FPS: $_fps, 持续时间: $_duration秒');
 
       final List<File> tempFrames = [];
