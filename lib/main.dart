@@ -26,7 +26,7 @@ void main(List<String> args) async {
 
   // 设置窗口属性
   WindowOptions windowOptions = const WindowOptions(
-    size: Size(700, 600),
+    size: Size(760, 600),
     center: true,
     backgroundColor: Colors.transparent,
     skipTaskbar: false,
@@ -165,7 +165,7 @@ class MyHomePage extends StatelessWidget {
                                         ),
                                         const SizedBox(height: 4),
                                         Text(
-                                          '帧率: ${viewModel.fps.toStringAsFixed(1)} FPS  •  时长: ${viewModel.duration.toStringAsFixed(2)}秒  •  内存: ${viewModel.memoryUsage.toStringAsFixed(1)}MB',
+                                          '帧率: ${viewModel.fps.toStringAsFixed(1)} FPS  •  时长: ${viewModel.duration.toStringAsFixed(2)}秒  •  内存: ${viewModel.memoryUsage.toStringAsFixed(1)}MB •  分辨率: ${viewModel.frameWidth}x${viewModel.frameHeight}',
                                           style: const TextStyle(
                                             color: Colors.grey,
                                             fontSize: 12,

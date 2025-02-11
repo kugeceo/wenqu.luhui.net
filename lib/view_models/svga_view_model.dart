@@ -17,6 +17,8 @@ class SVGAViewModel extends ChangeNotifier {
   double _duration = 0;  
   double _memoryUsage = 0;  
   int _totalFrames = 0;
+  int _frameWidth = 0;
+  int _frameHeight = 0;
 
   List<File> get frames => _frames;
   int get currentFrameIndex => _currentFrameIndex;
@@ -28,6 +30,8 @@ class SVGAViewModel extends ChangeNotifier {
   double get duration => _duration;
   double get memoryUsage => _memoryUsage;
   int get totalFrames => _totalFrames;
+  int get frameWidth => _frameWidth;
+  int get frameHeight => _frameHeight;
 
   // 清理所有状态
   Future<void> clearState() async {
@@ -105,6 +109,9 @@ class SVGAViewModel extends ChangeNotifier {
       _fps = videoItem.params.fps.toDouble();
       _duration = _totalFrames / _fps;
       print('FPS: $_fps, 持续时间: $_duration秒');
+
+      _frameWidth = videoItem.params.viewBoxWidth.toInt();
+      _frameHeight = videoItem.params.viewBoxHeight.toInt();
 
       final List<File> tempFrames = [];
 
