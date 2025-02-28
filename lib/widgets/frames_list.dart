@@ -118,6 +118,11 @@ class FramesList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       _ColorButton(
+                        color: Colors.transparent,
+                        isSelected: viewModel.previewBackgroundColor == Colors.transparent,
+                        onTap: () => viewModel.setPreviewBackgroundColor(Colors.transparent),
+                      ),
+                      _ColorButton(
                         color: Colors.black,
                         isSelected: viewModel.previewBackgroundColor == Colors.black,
                         onTap: () => viewModel.setPreviewBackgroundColor(Colors.black),
@@ -171,10 +176,20 @@ class _ColorButton extends StatelessWidget {
           color: color,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected ? Theme.of(context).primaryColor : Colors.grey.shade800,
-            width: 2,
+            color: isSelected ? Colors.blue.shade300 : Colors.grey.shade800,
+            width: isSelected ? 3 : 2,
           ),
         ),
+        child: color == Colors.transparent ? Center(
+          child: Transform.rotate(
+            angle: -0.785398,
+            child: Container(
+              width: 28,
+              height: 2,
+              color: Colors.red,
+            ),
+          ),
+        ) : null,
       ),
     );
   }
