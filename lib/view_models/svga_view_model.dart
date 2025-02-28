@@ -19,7 +19,7 @@ class SVGAViewModel extends ChangeNotifier {
   int _totalFrames = 0;
   int _frameWidth = 0;
   int _frameHeight = 0;
-  Color _backgroundColor = Colors.black;
+  Color _previewBackgroundColor = Colors.black;
   bool _showBorder = true;  // 添加边框显示状态
 
   List<File> get frames => _frames;
@@ -34,7 +34,7 @@ class SVGAViewModel extends ChangeNotifier {
   int get totalFrames => _totalFrames;
   int get frameWidth => _frameWidth;
   int get frameHeight => _frameHeight;
-  Color get backgroundColor => _backgroundColor;
+  Color get previewBackgroundColor => _previewBackgroundColor;
   bool get showBorder => _showBorder;
 
   // 清理所有状态
@@ -176,8 +176,8 @@ class SVGAViewModel extends ChangeNotifier {
     }
   }
 
-  void setBackgroundColor(Color color) {
-    _backgroundColor = color;
+  void setPreviewBackgroundColor(Color color) {  // 更新方法名
+    _previewBackgroundColor = color;
     notifyListeners();
   }
 

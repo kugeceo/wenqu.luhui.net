@@ -13,66 +13,68 @@ class FramesList extends StatelessWidget {
         return Column(
           children: [
             Expanded(
-              child: viewModel.frames.isEmpty
-                  ? const Center(
-                      child: Text('拖放SVGA文件到这里\n或点击右下角按钮打开文件'),
-                    )
-                  : GridView.builder(
-                      key: ValueKey(viewModel.currentFileName),
-                      padding: const EdgeInsets.all(8),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 8,
-                        mainAxisSpacing: 8,
-                        childAspectRatio: 1,
-                      ),
-                      itemCount: viewModel.frames.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () => viewModel.setCurrentFrameIndex(index),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: index == viewModel.currentFrameIndex
-                                    ? Theme.of(context).primaryColor
-                                    : Colors.grey.shade800,
-                                width: 2,
+              child: ClipRect(
+                child: viewModel.frames.isEmpty
+                    ? const Center(
+                        child: Text('拖放SVGA文件到这里\n或点击右下角按钮打开文件'),
+                      )
+                    : GridView.builder(
+                        key: ValueKey(viewModel.currentFileName),
+                        padding: const EdgeInsets.all(8),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                          childAspectRatio: 1,
+                        ),
+                        itemCount: viewModel.frames.length,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () => viewModel.setCurrentFrameIndex(index),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: index == viewModel.currentFrameIndex
+                                      ? Theme.of(context).primaryColor
+                                      : Colors.grey.shade800,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(4),
                               ),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Column(
-                              children: [
-                                Expanded(
-                                  child: Image.file(
-                                    viewModel.frames[index],
-                                    key: ValueKey('frame_${viewModel.currentFileName}_$index'),
-                                    fit: BoxFit.contain,
-                                    cacheWidth: null,
-                                    cacheHeight: null,
-                                    gaplessPlayback: false,
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: Image.file(
+                                      viewModel.frames[index],
+                                      key: ValueKey('frame_${viewModel.currentFileName}_$index'),
+                                      fit: BoxFit.contain,
+                                      cacheWidth: null,
+                                      cacheHeight: null,
+                                      gaplessPlayback: false,
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(4),
-                                  color: Colors.black45,
-                                  child: Text(
-                                    '图 ${index + 1}',
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(fontSize: 12),
+                                  Container(
+                                    padding: const EdgeInsets.all(4),
+                                    color: Colors.black45,
+                                    child: Text(
+                                      '图 ${index + 1}',
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
+                          );
+                        },
+                      ),
+              ),
             ),
             // 开关选项栏
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.black,  // 添加半透明黑色背景
+                color: Theme.of(context).scaffoldBackgroundColor,  // 使用 Scaffold 的默认背景色
                 border: Border(
                   top: BorderSide(
                     color: Colors.grey.shade800,
@@ -99,7 +101,7 @@ class FramesList extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.black,  // 添加半透明黑色背景
+                color: Theme.of(context).scaffoldBackgroundColor,  // 使用 Scaffold 的默认背景色
                 border: Border(
                   top: BorderSide(
                     color: Colors.grey.shade800,
@@ -117,23 +119,23 @@ class FramesList extends StatelessWidget {
                     children: [
                       _ColorButton(
                         color: Colors.black,
-                        isSelected: viewModel.backgroundColor == Colors.black,
-                        onTap: () => viewModel.setBackgroundColor(Colors.black),
+                        isSelected: viewModel.previewBackgroundColor == Colors.black,
+                        onTap: () => viewModel.setPreviewBackgroundColor(Colors.black),
                       ),
                       _ColorButton(
                         color: Colors.white,
-                        isSelected: viewModel.backgroundColor == Colors.white,
-                        onTap: () => viewModel.setBackgroundColor(Colors.white),
+                        isSelected: viewModel.previewBackgroundColor == Colors.white,
+                        onTap: () => viewModel.setPreviewBackgroundColor(Colors.white),
                       ),
                       _ColorButton(
                         color: Colors.grey,
-                        isSelected: viewModel.backgroundColor == Colors.grey,
-                        onTap: () => viewModel.setBackgroundColor(Colors.grey),
+                        isSelected: viewModel.previewBackgroundColor == Colors.grey,
+                        onTap: () => viewModel.setPreviewBackgroundColor(Colors.grey),
                       ),
                       _ColorButton(
                         color: Colors.blue,
-                        isSelected: viewModel.backgroundColor == Colors.blue,
-                        onTap: () => viewModel.setBackgroundColor(Colors.blue),
+                        isSelected: viewModel.previewBackgroundColor == Colors.blue,
+                        onTap: () => viewModel.setPreviewBackgroundColor(Colors.blue),
                       ),
                     ],
                   ),

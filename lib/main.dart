@@ -130,61 +130,62 @@ class MyHomePage extends StatelessWidget {
                 ),
                 // 右侧预览区域
                 Expanded(
-                  child: Consumer<SVGAViewModel>(
-                    builder: (context, viewModel, child) {
-                      return Container(
-                        color: viewModel.backgroundColor,
-                        child: Column(
-                          children: [
-                            // 文件信息栏
-                            Container(
-                              padding: const EdgeInsets.all(8),
-                              color: Colors.black45,  // 添加半透明黑色背景
-                              child: Consumer<SVGAViewModel>(
-                                builder: (context, viewModel, child) {
-                                  if (viewModel.currentFileName == null) return const SizedBox();
-                                  return Row(
-                                    children: [
-                                      const Icon(Icons.movie_outlined),
-                                      const SizedBox(width: 8),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              viewModel.currentFileName!,
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            const SizedBox(height: 4),
-                                            Text(
-                                              '帧率: ${viewModel.fps.toStringAsFixed(1)} FPS  •  时长: ${viewModel.duration.toStringAsFixed(2)}秒  •  内存: ${viewModel.memoryUsage.toStringAsFixed(1)}MB •  分辨率: ${viewModel.frameWidth}x${viewModel.frameHeight}',
-                                              style: const TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ],
+                  child: Container(
+                    color: Colors.transparent,
+                    child: Column(
+                      children: [
+                        // 文件信息栏
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          color: Colors.black45,
+                          child: Consumer<SVGAViewModel>(
+                            builder: (context, viewModel, child) {
+                              if (viewModel.currentFileName == null) return const SizedBox();
+                              return Row(
+                                children: [
+                                  const Icon(Icons.movie_outlined),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          viewModel.currentFileName!,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        '总帧数: ${viewModel.totalFrames}',
-                                        style: const TextStyle(color: Colors.grey),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                            // 动画播放区域
-                            Expanded(
-                              child: Container(
-                                margin: const EdgeInsets.all(16),
-                                alignment: Alignment.center,  // 添加居中对齐
-                                child: Container(  // 新增一个内部Container
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          '帧率: ${viewModel.fps.toStringAsFixed(1)} FPS  •  时长: ${viewModel.duration.toStringAsFixed(2)}秒  •  内存: ${viewModel.memoryUsage.toStringAsFixed(1)}MB •  分辨率: ${viewModel.frameWidth}x${viewModel.frameHeight}',
+                                          style: const TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Text(
+                                    '总帧数: ${viewModel.totalFrames}',
+                                    style: const TextStyle(color: Colors.grey),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                        // 动画播放区域
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.all(16),
+                            alignment: Alignment.center,
+                            child: Consumer<SVGAViewModel>(
+                              builder: (context, viewModel, child) {
+                                return Container(
                                   decoration: BoxDecoration(
+                                    color: viewModel.previewBackgroundColor,
                                     border: viewModel.showBorder ? Border.all(
                                       color: Colors.grey.shade800,
                                       width: 1,
@@ -197,25 +198,22 @@ class MyHomePage extends StatelessWidget {
                                           child: Text('无预览'),
                                         )
                                       : SVGAPreview(file: viewModel.svgaFile!),
-                                ),
-                              ),
+                                );
+                              },
                             ),
-                            // 分隔线
-                            Container(
-                              height: 1,
-                              color: Colors.grey.shade800,
-                            ),
-                            // 图片预览区域
-                            Expanded(
-                              child: Container(
-                                margin: const EdgeInsets.all(16),
-                                child: const FramePreview(),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                      );
-                    },
+                        // 分隔线
+                        Container(
+                          height: 1,
+                          color: Colors.grey.shade800,
+                        ),
+                        // 图片预览区域
+                        Expanded(
+                          child: const FramePreview(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
