@@ -200,9 +200,17 @@ class MyHomePage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            // 下半部分：当前帧预览
-                            const Expanded(
-                              child: FramePreview(),
+                            // 分隔线
+                            Container(
+                              height: 1,
+                              color: Colors.grey.shade800,
+                            ),
+                            // 图片预览区域
+                            Expanded(
+                              child: Container(
+                                margin: const EdgeInsets.all(16),
+                                child: const FramePreview(),
+                              ),
                             ),
                           ],
                         ),
