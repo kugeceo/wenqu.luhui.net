@@ -15,13 +15,22 @@ class FramePreview extends StatelessWidget {
             Center(
               child: viewModel.currentFrame == null
                   ? const Text('无预览内容')
-                  : Image.file(
-                      viewModel.currentFrame!,
-                      key: ValueKey('preview_${viewModel.currentFileName}_${viewModel.currentFrameIndex}'),
-                      fit: BoxFit.contain,
-                      cacheWidth: null,
-                      cacheHeight: null,
-                      gaplessPlayback: false,
+                  : Container(
+                      decoration: BoxDecoration(
+                        border: viewModel.showBorder ? Border.all(
+                          color: Colors.grey.shade800,
+                          width: 1,
+                        ) : null,
+                        borderRadius: viewModel.showBorder ? BorderRadius.circular(4) : null,
+                      ),
+                      child: Image.file(
+                        viewModel.currentFrame!,
+                        key: ValueKey('preview_${viewModel.currentFileName}_${viewModel.currentFrameIndex}'),
+                        fit: BoxFit.contain,
+                        cacheWidth: null,
+                        cacheHeight: null,
+                        gaplessPlayback: false,
+                      ),
                     ),
             ),
             if (viewModel.currentFrame != null)
