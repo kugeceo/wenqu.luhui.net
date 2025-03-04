@@ -167,6 +167,7 @@ class MyHomePage extends StatelessWidget {
                                       ],
                                     ),
                                   ),
+                                  const SizedBox(width: 8),
                                   Text(
                                     '总帧数: ${viewModel.totalFrames}',
                                     style: const TextStyle(color: Colors.grey),
