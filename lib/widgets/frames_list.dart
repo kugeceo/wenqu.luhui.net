@@ -15,9 +15,7 @@ class FramesList extends StatelessWidget {
             Expanded(
               child: ClipRect(
                 child: viewModel.frames.isEmpty
-                    ? const Center(
-                        child: Text('拖放SVGA文件到这里\n或点击右下角按钮打开文件'),
-                      )
+                    ? getPlaceholderWidget(viewModel.svgaFile == null)
                     : GridView.builder(
                         key: ValueKey(viewModel.currentFileName),
                         padding: const EdgeInsets.all(8),
@@ -151,6 +149,18 @@ class FramesList extends StatelessWidget {
         );
       },
     );
+  }
+
+  Widget getPlaceholderWidget(bool isEmptySvga) {
+    if (isEmptySvga) {
+      return const Center(
+        child: Text('拖放SVGA文件到这里\n或点击右下角按钮打开文件'),
+      );
+    } else {
+      return const Center(
+        child: Text('该SVGA文件并未包含图片\n🎨🚫', textAlign: TextAlign.center,),
+      );
+    }
   }
 }
 

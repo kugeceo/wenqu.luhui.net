@@ -152,23 +152,21 @@ class SVGAViewModel extends ChangeNotifier {
 
       if (tempFrames.isEmpty) {
         print('未能从SVGA文件中提取到任何图片');
-        await clearState();
       } else {
         print('成功提取了 ${tempFrames.length} 帧图片');
-        
-        imageCache.clear();
-        imageCache.clearLiveImages();
-        print('再次清空图片缓存');
-        
-        _frames = List.from(tempFrames);
-        _currentFrameIndex = 0;
-        print('帧数组已更新，长度: ${_frames.length}');
-        
-        Future.microtask(() {
-          notifyListeners();
-          print('UI更新完成');
-        });
       }
+      imageCache.clear();
+      imageCache.clearLiveImages();
+      print('再次清空图片缓存');
+      
+      _frames = List.from(tempFrames);
+      _currentFrameIndex = 0;
+      print('帧数组已更新，长度: ${_frames.length}');
+      
+      Future.microtask(() {
+        notifyListeners();
+        print('UI更新完成');
+      });
     } catch (e) {
       print('处理SVGA文件时出错: $e');
       print(e.toString());

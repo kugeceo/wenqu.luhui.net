@@ -27,6 +27,7 @@ void main(List<String> args) async {
   // 设置窗口属性
   WindowOptions windowOptions = const WindowOptions(
     size: Size(760, 600),
+    minimumSize: Size(380, 300),
     center: true,
     backgroundColor: Colors.transparent,
     skipTaskbar: false,
