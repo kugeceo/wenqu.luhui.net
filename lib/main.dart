@@ -194,12 +194,7 @@ class MyHomePage extends StatelessWidget {
                                     ) : null,
                                     borderRadius: viewModel.showBorder ? BorderRadius.circular(4) : null,
                                   ),
-                                  child: viewModel.svgaFile == null
-                                      ? const Padding(
-                                          padding: EdgeInsets.all(16),
-                                          child: Text('无预览'),
-                                        )
-                                      : SVGAPreview(file: viewModel.svgaFile!),
+                                  child: getSvgaWidget(viewModel),
                                 );
                               },
                             ),
@@ -260,6 +255,40 @@ class MyHomePage extends StatelessWidget {
         tooltip: '打开SVGA文件',
         child: const Icon(Icons.folder_open),
       ),
+    );
+  }
+
+  Widget getSvgaWidget(SVGAViewModel viewModel) {
+    if (viewModel.svgaFile == null || viewModel.frameWidth == 0 || viewModel.frameHeight == 0) {
+      return const Padding(
+        padding: EdgeInsets.all(16),
+        child: Text('无预览'),
+      );
+    }
+
+    // 等比例填充（目前暂无效果）
+    // if (viewModel.scaleAspectFill) {
+    //   return SVGAPreview(file: viewModel.svgaFile!);
+    // }
+
+    // 等比例适应
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // 计算缩放比例
+        double scaleX = constraints.maxWidth / viewModel.frameWidth;
+        double scaleY = constraints.maxHeight / viewModel.frameHeight;
+        double scale = scaleX < scaleY ? scaleX : scaleY;
+        
+        // 计算实际显示尺寸
+        double width = viewModel.frameWidth * scale;
+        double height = viewModel.frameHeight * scale;
+        
+        return SizedBox(
+          width: width,
+          height: height,
+          child: SVGAPreview(file: viewModel.svgaFile!),
+        );
+      },
     );
   }
 }

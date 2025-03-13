@@ -21,6 +21,7 @@ class SVGAViewModel extends ChangeNotifier {
   int _frameHeight = 0;
   Color _previewBackgroundColor = Colors.transparent;
   bool _showBorder = true;  // 添加边框显示状态
+  bool _scaleAspectFill = false;  // 添加等比例填充状态
 
   List<File> get frames => _frames;
   int get currentFrameIndex => _currentFrameIndex;
@@ -36,6 +37,7 @@ class SVGAViewModel extends ChangeNotifier {
   int get frameHeight => _frameHeight;
   Color get previewBackgroundColor => _previewBackgroundColor;
   bool get showBorder => _showBorder;
+  bool get scaleAspectFill => _scaleAspectFill;
 
   // 清理所有状态
   Future<void> clearState() async {
@@ -181,6 +183,11 @@ class SVGAViewModel extends ChangeNotifier {
 
   void setShowBorder(bool value) {
     _showBorder = value;
+    notifyListeners();
+  }
+
+  void setScaleAspectFill(bool value) {
+    _scaleAspectFill = value;
     notifyListeners();
   }
 } 
