@@ -68,33 +68,6 @@ class FramesList extends StatelessWidget {
                       ),
               ),
             ),
-            // 等比例填充选项栏（目前暂无效果）
-            // Container(
-            //   padding: const EdgeInsets.all(8),
-            //   decoration: BoxDecoration(
-            //     color: Theme.of(context).scaffoldBackgroundColor,  // 使用 Scaffold 的默认背景色
-            //     border: Border(
-            //       top: BorderSide(
-            //         color: Colors.grey.shade800,
-            //         width: 1,
-            //       ),
-            //     ),
-            //   ),
-            //   child: Row(
-            //     children: [
-            //       const Text('等比例填充:', style: TextStyle(fontSize: 12)),
-            //       const Spacer(),
-            //       Transform.scale(
-            //         scale: 0.7,
-            //         child: CupertinoSwitch(
-            //           value: viewModel.scaleAspectFill,
-            //           onChanged: viewModel.setScaleAspectFill,
-            //           activeColor: Colors.blue.shade200,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             // 开关选项栏
             Container(
               padding: const EdgeInsets.all(8),
