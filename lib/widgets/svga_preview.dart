@@ -13,6 +13,7 @@ class SVGAPreview extends StatefulWidget {
 }
 
 class _SVGAPreviewState extends State<SVGAPreview> {
+  
   @override
   void initState() {
     super.initState();
