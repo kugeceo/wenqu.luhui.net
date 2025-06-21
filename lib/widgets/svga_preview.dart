@@ -29,11 +29,9 @@ class _SVGAPreviewState extends State<SVGAPreview> {
   
   Future<void> _loadSVGA() async {
     try {
-      print("jpjpjp 11111111 ${widget.controller.hashCode}"); 
       widget.controller.reset();
-      print("jpjpjp 222222222"); 
-      final parser = SVGAParser();
-      print("jpjpjp ${parser.hashCode}"); 
+      final parser = SVGAParser(); // 如果使用的是const parser，这里会是同一个实例
+      print("jpjpjp parser.hashCode: ${parser.hashCode}");
       final videoItem = await parser.decodeFromBuffer(
         await widget.file.readAsBytes(),
       );
@@ -48,7 +46,9 @@ class _SVGAPreviewState extends State<SVGAPreview> {
   
   @override
   void dispose() {
-    widget.controller.dispose();
+    // 一旦Widget中展示的数据发生变化，就会销毁现在这个Widget，然后重新构建整个Widget，因此：
+    // ❌ 不能在这里释放controller，因为它是由父组件管理的
+    // widget.controller.dispose();
     super.dispose();
   }
   

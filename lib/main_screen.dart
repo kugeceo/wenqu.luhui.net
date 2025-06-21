@@ -23,6 +23,13 @@ class _JPMainScreenState extends State<JPMainScreen> with SingleTickerProviderSt
   }
 
   @override
+  void dispose() {
+    // ✅ 正确地在父组件中释放controller
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
@@ -123,8 +130,8 @@ class _JPMainScreenState extends State<JPMainScreen> with SingleTickerProviderSt
                       color: Colors.grey.shade800,
                     ),
                     // 图片预览区域
-                    Expanded(
-                      child: const FramePreview(),
+                    const Expanded(
+                      child: FramePreview(),
                     ),
                   ],
                 ),
