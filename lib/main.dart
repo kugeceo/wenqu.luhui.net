@@ -4,13 +4,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
 import 'package:path/path.dart' as path;
+import 'package:svga_previewer/main_screen.dart';
 import 'package:window_manager/window_manager.dart';
 import 'single_instance.dart';
 import 'package:flutter/services.dart';
 import 'view_models/svga_view_model.dart';  // 添加这行导入
-import 'widgets/frames_list.dart';
-import 'widgets/svga_preview.dart';
-import 'widgets/frame_preview.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -112,135 +110,7 @@ class MyHomePage extends StatelessWidget {
         onDragExited: (details) {
           Provider.of<SVGAViewModel>(context, listen: false).setDragging(false);
         },
-        child: Stack(
-          children: [
-            Row(
-              children: [
-                // 左侧帧列表
-                Container(
-                  width: 200,
-                  decoration: BoxDecoration(
-                    border: Border(
-                      right: BorderSide(
-                        color: Colors.grey.shade800,
-                        width: 1,
-                      ),
-                    ),
-                  ),
-                  child: const FramesList(),
-                ),
-                // 右侧预览区域
-                Expanded(
-                  child: Container(
-                    color: Colors.transparent,
-                    child: Column(
-                      children: [
-                        // 文件信息栏
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          color: Colors.black45,
-                          child: Consumer<SVGAViewModel>(
-                            builder: (context, viewModel, child) {
-                              if (viewModel.currentFileName == null) return const SizedBox();
-                              return Row(
-                                children: [
-                                  const Icon(Icons.movie_outlined),
-                                  const SizedBox(width: 8),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          viewModel.currentFileName!,
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          '帧率: ${viewModel.fps.toStringAsFixed(1)} FPS  •  时长: ${viewModel.duration.toStringAsFixed(2)}秒  •  内存: ${viewModel.memoryUsage.toStringAsFixed(1)}MB •  分辨率: ${viewModel.frameWidth}x${viewModel.frameHeight}',
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(
-                                    '总帧数: ${viewModel.totalFrames}',
-                                    style: const TextStyle(color: Colors.grey),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                        // 动画播放区域
-                        Expanded(
-                          child: Container(
-                            margin: const EdgeInsets.all(16),
-                            alignment: Alignment.center,
-                            child: Consumer<SVGAViewModel>(
-                              builder: (context, viewModel, child) {
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    color: viewModel.previewBackgroundColor,
-                                    border: viewModel.showBorder ? Border.all(
-                                      color: Colors.grey.shade800,
-                                      width: 1,
-                                    ) : null,
-                                    borderRadius: viewModel.showBorder ? BorderRadius.circular(4) : null,
-                                  ),
-                                  child: viewModel.svgaFile == null
-                                      ? const Padding(
-                                          padding: EdgeInsets.all(16),
-                                          child: Text('无预览'),
-                                        )
-                                      : SVGAPreview(file: viewModel.svgaFile!),
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                        // 分隔线
-                        Container(
-                          height: 1,
-                          color: Colors.grey.shade800,
-                        ),
-                        // 图片预览区域
-                        Expanded(
-                          child: const FramePreview(),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            // 拖拽提示遮罩
-            Consumer<SVGAViewModel>(
-              builder: (context, viewModel, child) {
-                if (!viewModel.isDragging) return const SizedBox();
-                return Container(
-                  color: Colors.black.withOpacity(0.7),
-                  child: const Center(
-                    child: Text(
-                      '释放以打开 SVGA 文件',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
+        child: const JPMainScreen(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {

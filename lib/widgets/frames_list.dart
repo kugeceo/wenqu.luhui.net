@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:svgaplayer_flutter/player.dart';
 import '../view_models/svga_view_model.dart';
 import 'package:flutter/cupertino.dart';
 
 class FramesList extends StatelessWidget {
-  const FramesList({super.key});
+  final SVGAAnimationController controller;
+  
+  const FramesList({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +71,35 @@ class FramesList extends StatelessWidget {
                       ),
               ),
             ),
+
+            // 进度控制栏
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,  // 使用 Scaffold 的默认背景色
+                border: Border(
+                  top: BorderSide(
+                    color: Colors.grey.shade800,
+                    width: 1,
+                  ),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('当前帧: ${controller.currentFrame}', style: const TextStyle(fontSize: 12)),
+                  const SizedBox(height: 8),
+                  Container(
+                    color: Colors.amber,
+                    child: const Padding(
+                      padding: EdgeInsets.all(2), 
+                      child: Text('临时占位的，之后放一个可以拖拽的进度条', style: TextStyle(fontSize: 12, color: Colors.black87)),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
             // 开关选项栏
             Container(
               padding: const EdgeInsets.all(8),
