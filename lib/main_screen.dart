@@ -5,7 +5,6 @@ import 'package:svga_previewer/widgets/animation_preview.dart';
 import 'package:svga_previewer/widgets/frame_preview.dart';
 import 'package:svga_previewer/widgets/frames_list.dart';
 import 'package:svga_previewer/widgets/svga_info_bar.dart';
-import 'package:svga_previewer/widgets/svga_preview.dart';
 import 'package:svgaplayer_flutter/player.dart';
 
 class JPMainScreen extends StatefulWidget {
