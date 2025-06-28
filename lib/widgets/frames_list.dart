@@ -127,6 +127,7 @@ class FramesList extends StatelessWidget {
                 ],
               ),
             ),
+
             // 背景选项栏
             Container(
               padding: const EdgeInsets.all(8),
@@ -177,6 +178,7 @@ class FramesList extends StatelessWidget {
                 ],
               ),
             ),
+            
           ],
         );
       },
