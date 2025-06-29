@@ -42,6 +42,9 @@ void main(List<String> args) async {
   // 创建视图模型
   final viewModel = SVGAViewModel();
 
+  // 从缓存加载排版模式
+  await viewModel.loadModeFromCache();
+
   // 设置方法通道处理文件打开
   const channel = MethodChannel('svga_viewer');
   channel.setMethodCallHandler((call) async {

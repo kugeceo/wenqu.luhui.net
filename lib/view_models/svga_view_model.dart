@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'dart:io';
 import 'dart:typed_data';
@@ -7,13 +8,15 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:ui';
 
 enum DisplayMode {
-  showTop,
   showAll,
+  showTop,
   showBottom,
 }
 
 // SVGA视图模型，用于管理状态
 class SVGAViewModel extends ChangeNotifier {
+  static const _mode_key = 'user_mode';
+
   List<File> _frames = [];
   int _currentFrameIndex = 0;
   bool _isDragging = false;
@@ -44,6 +47,17 @@ class SVGAViewModel extends ChangeNotifier {
   Color get previewBackgroundColor => _previewBackgroundColor;
   bool get showBorder => _showBorder;
   DisplayMode get mode => _mode;
+
+  // 从缓存加载排版模式
+  Future<void> loadModeFromCache() async {
+    final prefs = await SharedPreferences.getInstance();
+    final name = prefs.getString(_mode_key);
+    if (name == null) return;
+    _mode = DisplayMode.values.firstWhere(
+      (e) => e.name == name,
+      orElse: () => DisplayMode.showAll,
+    );
+  }
 
   // 清理所有状态
   Future<void> clearState() async {
@@ -192,8 +206,10 @@ class SVGAViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setMode(DisplayMode mode) {
+  Future<void> setMode(DisplayMode mode) async {
     _mode = mode;
     notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_mode_key, mode.name);
   }
 } 

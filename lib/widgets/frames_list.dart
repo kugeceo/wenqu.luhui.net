@@ -262,10 +262,10 @@ class _ModeButton extends StatelessWidget {
         icon = Icons.vertical_align_center;
         break;
       case DisplayMode.showTop:
-        icon = Icons.vertical_align_top;
+        icon = Icons.vertical_align_bottom;
         break;
       case DisplayMode.showBottom:
-        icon = Icons.vertical_align_bottom;
+        icon = Icons.vertical_align_top;
         break;
     }
     
