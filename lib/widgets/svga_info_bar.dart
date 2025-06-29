@@ -12,7 +12,7 @@ class SVGAInfoBar extends StatelessWidget {
       color: Colors.black45,
       child: Consumer<SVGAViewModel>(
         builder: (context, viewModel, child) {
-          if (viewModel.currentFileName == null) return const SizedBox();
+          if (viewModel.currentFileName == null) return const Row();
           return Row(
             children: [
               const Icon(Icons.movie_outlined),

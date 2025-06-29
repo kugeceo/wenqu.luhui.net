@@ -55,6 +55,13 @@ class _SVGAPreviewState extends State<SVGAPreview> {
   
   @override
   Widget build(BuildContext context) {
-    return SVGAImage(widget.controller);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SVGAImage(
+          widget.controller, 
+          preferredSize: Size(constraints.maxWidth, constraints.maxHeight),
+        );
+      },
+    );
   }
 } 

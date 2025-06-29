@@ -6,6 +6,12 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'dart:ui';
 
+enum DisplayMode {
+  showTop,
+  showAll,
+  showBottom,
+}
+
 // SVGA视图模型，用于管理状态
 class SVGAViewModel extends ChangeNotifier {
   List<File> _frames = [];
@@ -21,6 +27,7 @@ class SVGAViewModel extends ChangeNotifier {
   int _frameHeight = 0;
   Color _previewBackgroundColor = Colors.transparent;
   bool _showBorder = true;  // 添加边框显示状态
+  DisplayMode _mode = DisplayMode.showAll;
 
   List<File> get frames => _frames;
   int get currentFrameIndex => _currentFrameIndex;
@@ -36,6 +43,7 @@ class SVGAViewModel extends ChangeNotifier {
   int get frameHeight => _frameHeight;
   Color get previewBackgroundColor => _previewBackgroundColor;
   bool get showBorder => _showBorder;
+  DisplayMode get mode => _mode;
 
   // 清理所有状态
   Future<void> clearState() async {
@@ -181,6 +189,11 @@ class SVGAViewModel extends ChangeNotifier {
 
   void setShowBorder(bool value) {
     _showBorder = value;
+    notifyListeners();
+  }
+
+  void setMode(DisplayMode mode) {
+    _mode = mode;
     notifyListeners();
   }
 } 

@@ -16,7 +16,7 @@ class JPMainScreen extends StatefulWidget {
 
 class _JPMainScreenState extends State<JPMainScreen> with SingleTickerProviderStateMixin {
   late SVGAAnimationController _controller;
-  
+
   @override
   void initState() {
     super.initState();
@@ -53,18 +53,35 @@ class _JPMainScreenState extends State<JPMainScreen> with SingleTickerProviderSt
             Expanded(
               child: Container(
                 color: Colors.transparent,
-                child: Column(
-                  children: [
-                    // 文件信息栏
-                    const SVGAInfoBar(),
-                    // 动画播放区域
-                    Expanded(child: AnimationPreview(controller: _controller),),
-                    // 分隔线
-                    Container(height: 1, color: Colors.grey.shade800,),
-                    // 图片预览区域
-                    const Expanded( child: FramePreview(),),
-                  ],
+                child: Consumer<SVGAViewModel>(
+                  builder: (context, viewModel, child) {
+                    return Column(
+                      children: _buildPreviews(viewModel.mode),
+                    );
+                  },
                 ),
+                // Column+Stack方式:
+                // child: Column(
+                //   children: [
+                //     // 文件信息栏
+                //     const SVGAInfoBar(),
+                //     Expanded(
+                //       child: LayoutBuilder(
+                //         builder: (context, constraints) {
+                //           final fullHeight = constraints.maxHeight;
+                //           return Consumer<SVGAViewModel>(
+                //             builder: (context, viewModel, child) {
+                //               final mode = viewModel.mode;
+                //               return Stack(
+                //                 children: _buildPreviews(mode, fullHeight,),
+                //               );
+                //             }
+                //           );
+                //         },
+                //       )
+                //     ),
+                //   ],
+                // ),
               ),
             ),
           ],
@@ -91,4 +108,71 @@ class _JPMainScreenState extends State<JPMainScreen> with SingleTickerProviderSt
       ],
     );
   }
+
+  List<Widget> _buildPreviews(DisplayMode mode) {
+    List<Widget> list = [const SVGAInfoBar()]; // 文件信息栏
+    if (mode == DisplayMode.showTop) {
+      list.add(Expanded(child: AnimationPreview(controller: _controller),)); // 动画播放区域
+    } else if (mode == DisplayMode.showBottom) {
+      list.add(Container(height: 1, color: Colors.grey.shade800,)); // 分隔线
+      list.add(const Expanded(child: FramePreview(),)); // 图片预览区域
+    } else {
+      list.add(Expanded(child: AnimationPreview(controller: _controller),)); // 动画播放区域
+      list.add(Container(height: 1, color: Colors.grey.shade800,)); // 分隔线
+      list.add(const Expanded(child: FramePreview(),)); // 图片预览区域
+    }
+    return list;
+  }
+  
+  // Column+Stack方式:
+  // List<Widget> _buildPreviews(DisplayMode mode, double fullHeight) {
+  //   final halfHeight = (fullHeight - 1) / 2;
+  //   if (mode == DisplayMode.showTop) {
+  //     return  [
+  //       _buildBottom(halfHeight),
+  //       _buildTop(fullHeight),
+  //     ];
+  //   } else if (mode == DisplayMode.showBottom) {
+  //     return  [
+  //       _buildTop(halfHeight),
+  //       _buildBottom(fullHeight),
+  //     ];
+  //   } else {
+  //     return [
+  //       _buildTop(halfHeight),
+  //       _buildLine(halfHeight),
+  //       _buildBottom(halfHeight),
+  //     ];
+  //   }
+  // }
+  // 
+  // Widget _buildTop(double height) {
+  //   return Positioned(
+  //     top: 0,
+  //     left: 0,
+  //     right: 0,
+  //     height: height,
+  //     child: AnimationPreview(controller: _controller),
+  //   );
+  // }
+  // 
+  // Widget _buildLine(double top) {
+  //   return Positioned(
+  //     top: top,
+  //     left: 0,
+  //     right: 0,
+  //     height: 1,
+  //     child: Container(height: 1, color: Colors.grey.shade800,),
+  //   );
+  // }
+  // 
+  // Widget _buildBottom(double height) {
+  //   return Positioned(
+  //     bottom: 0,
+  //     left: 0,
+  //     right: 0,
+  //     height: height,
+  //     child: const FramePreview(),
+  //   );
+  // }
 }
