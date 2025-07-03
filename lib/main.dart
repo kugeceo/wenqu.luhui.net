@@ -4,7 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
 import 'package:path/path.dart' as path;
-import 'package:svga_previewer/main_screen.dart';
+import 'package:svga_previewer/widgets/home_screen.dart';
 import 'package:window_manager/window_manager.dart';
 import 'single_instance.dart';
 import 'package:flutter/services.dart';
@@ -113,7 +113,7 @@ class MyHomePage extends StatelessWidget {
         onDragExited: (details) {
           Provider.of<SVGAViewModel>(context, listen: false).setDragging(false);
         },
-        child: const JPMainScreen(),
+        child: const HomeScreen(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {

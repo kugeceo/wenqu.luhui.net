@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:svga_previewer/view_models/svga_view_model.dart';
-import 'package:svga_previewer/widgets/svga_preview.dart';
+import 'package:svga_previewer/widgets/right_side/svga_preview.dart';
 import 'package:svgaplayer_flutter/player.dart';
 
 class AnimationPreview extends StatelessWidget {
@@ -31,7 +31,7 @@ class AnimationPreview extends StatelessWidget {
     }
     return [
       _buildSVGABackground(viewModel),
-      SVGAPreview(controller: controller, file: viewModel.svgaFile!),
+      SVGAPreview(controller: controller, file: viewModel.svgaFile!,),
     ];
   }
 

@@ -32,16 +32,17 @@ class _SVGAPreviewState extends State<SVGAPreview> {
     try {
       widget.controller.reset();
       final parser = SVGAParser(); // 如果使用的是const parser，这里会是同一个实例
-      print("jpjpjp parser.hashCode: ${parser.hashCode}");
+      print("SVGAPreview parser.hashCode: ${parser.hashCode}");
       final videoItem = await parser.decodeFromBuffer(
         await widget.file.readAsBytes(),
       );
       if (mounted) {
+        print("SVGAPreview 开始播放");
         widget.controller.videoItem = videoItem;
         widget.controller.repeat();
       }
     } catch (e) {
-      print('jpjpjp 加载SVGA文件失败: $e');
+      print('SVGAPreview 加载SVGA文件失败: $e');
     }
   }
   
@@ -59,6 +60,7 @@ class _SVGAPreviewState extends State<SVGAPreview> {
       builder: (context, constraints) {
         return SVGAImage(
           widget.controller, 
+          filterQuality: FilterQuality.high,
           preferredSize: Size(constraints.maxWidth, constraints.maxHeight),
         );
       },
