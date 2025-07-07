@@ -1,12 +1,12 @@
-# svga_previewer
+# SVGA Previewer
 
-一款快速预览SVGA的桌面小工具。
+一款可快速预览SVGA的桌面小工具。
 
 ![example](https://github.com/Rogue24/JPCover/raw/master/svga_previewer/example.gif)
 
-- 前期使用`Flutter`+`Cursor`开发，主要支持MacOS平台（起初代码质量有待优化，毕竟用的AI快速开发🤖，后续将不断优化😺）。
+前期使用`Flutter`+`Cursor`开发，主要支持MacOS平台（起初代码质量有待优化，毕竟用的AI快速开发🤖，后续将不断优化😺）。
 
-    Feature：
+    Feature:
         ✅ 可预览SVGA动画及其内置图片；
         ✅ 可查看SVGA动画信息（帧率、时长、内存、分辨率）；
         ✅ 支持动画进度的控制；
