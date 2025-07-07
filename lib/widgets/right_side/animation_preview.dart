@@ -16,25 +16,41 @@ class AnimationPreview extends StatelessWidget {
       alignment: Alignment.center,
       child: Consumer<SVGAViewModel>(
         builder: (context, viewModel, child) {
-          return Stack(
-            alignment: Alignment.center,
-            children: _buildWigets(viewModel),
+          if (viewModel.svgaFile == null) {
+            return _buildPlaceholder(viewModel);
+          }
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              double width = constraints.maxWidth;
+              double height = constraints.maxHeight;
+              Size preferredSize;
+              if (viewModel.frameWidth > viewModel.frameHeight) {
+                double ratio = viewModel.frameHeight / viewModel.frameWidth;
+                height = width * ratio;
+                preferredSize = Size((width - 2), (width - 2) * ratio); // Border宽度是属于内边距，所以减2
+              } else {
+                double ratio = viewModel.frameWidth / viewModel.frameHeight;
+                width = height * ratio;
+                preferredSize = Size((height - 2) * ratio, (height - 2)); // Border宽度是属于内边距，所以减2
+              }
+              return SizedBox(
+                width: width,
+                height: height,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SVGAPreview(controller: controller, file: viewModel.svgaFile!, preferredSize: preferredSize,),
+                    _buildBorder(viewModel),
+                  ],
+                ),
+              );
+            },
           );
         },
       ),
     );
   }
-
-  List<Widget> _buildWigets(SVGAViewModel viewModel) {
-    if (viewModel.svgaFile == null) {
-      return [_buildPlaceholder(viewModel)];
-    }
-    return [
-      _buildSVGABackground(viewModel),
-      SVGAPreview(controller: controller, file: viewModel.svgaFile!,),
-    ];
-  }
-
+  
   Widget _buildPlaceholder(SVGAViewModel viewModel) {
     return Container(
       decoration: BoxDecoration(
@@ -43,7 +59,7 @@ class AnimationPreview extends StatelessWidget {
           color: Colors.grey.shade800,
           width: 1,
         ),
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(6),
       ),
       child: const Padding(
         padding: EdgeInsets.all(16),
@@ -52,29 +68,15 @@ class AnimationPreview extends StatelessWidget {
     );
   }
 
-  Widget _buildSVGABackground(SVGAViewModel viewModel) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        double width = constraints.maxWidth;
-        double height = constraints.maxHeight;
-        if (viewModel.frameWidth > viewModel.frameHeight) {
-          height = width * (viewModel.frameHeight / viewModel.frameWidth);
-        } else {
-          width = height * (viewModel.frameWidth / viewModel.frameHeight);
-        }
-        return Container(
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-            color: viewModel.previewBackgroundColor,
-            border: viewModel.showBorder ? Border.all(
-              color: Colors.grey.shade800,
-              width: 1,
-            ) : null,
-            borderRadius: viewModel.showBorder ? BorderRadius.circular(4) : null,
-          ),
-        );
-      },
+  Widget _buildBorder(SVGAViewModel viewModel) {
+    return Container(
+      decoration: BoxDecoration(
+        border: viewModel.showBorder ? Border.all(
+          color: Colors.grey.shade800,
+          width: 1,
+        ) : null,
+        borderRadius: BorderRadius.circular(6),
+      ),
     );
   }
 } 

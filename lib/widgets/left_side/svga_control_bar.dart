@@ -1,16 +1,19 @@
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:svga_previewer/view_models/svga_view_model.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 
 class SVGAControlBar extends StatelessWidget {
+  final SVGAViewModel viewModel;
   final SVGAAnimationController controller;
-  
-  const SVGAControlBar({super.key, required this.controller});
+
+  const SVGAControlBar({super.key, required this.viewModel, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 10, bottom: 8),
+      padding: const EdgeInsets.only(top: 10, bottom: 2),
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,  // 使用 Scaffold 的默认背景色
         border: Border(
@@ -28,12 +31,10 @@ class SVGAControlBar extends StatelessWidget {
           thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6, pressedElevation: 4),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   AnimatedBuilder(
                     animation: controller,
@@ -50,7 +51,9 @@ class SVGAControlBar extends StatelessWidget {
                 ],
               ),
             ),
+
             const SizedBox(height: 8),
+
             Padding(
               padding: const EdgeInsets.only(left: 3, right: 3),
               child: AnimatedBuilder(
@@ -74,6 +77,24 @@ class SVGAControlBar extends StatelessWidget {
                 }
               ),
             ),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 8),
+              child: Row(
+                children: [
+                  const Text('允许绘制溢出:', style: TextStyle(fontSize: 12)),
+                  const Spacer(),
+                  Transform.scale(
+                    scale: 0.7,
+                    child: CupertinoSwitch(
+                      value: viewModel.allowDrawingOverflow,
+                      onChanged: viewModel.setAllowDrawingOverflow,
+                      activeColor: Colors.blue.shade200,
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

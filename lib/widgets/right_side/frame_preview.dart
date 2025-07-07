@@ -24,7 +24,7 @@ class FramePreview extends StatelessWidget {
                             color: Colors.grey.shade800,
                             width: 1,
                           ) : null,
-                          borderRadius: viewModel.showBorder ? BorderRadius.circular(4) : null,
+                          borderRadius: viewModel.showBorder ? BorderRadius.circular(6) : null,
                         ),
                         child: Image.file(
                           viewModel.currentFrame!,

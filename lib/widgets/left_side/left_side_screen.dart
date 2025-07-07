@@ -38,7 +38,7 @@ class LeftSideScreen extends StatelessWidget {
     ]; 
     if (viewModel.svgaFile != null && viewModel.mode != DisplayMode.showBottom) {
       // 进度控制栏
-      list.add(SVGAControlBar(controller: controller));
+      list.add(SVGAControlBar(viewModel: viewModel, controller: controller));
     }
     // 边框选项栏
     list.add(ToggleBorderBar(viewModel: viewModel));

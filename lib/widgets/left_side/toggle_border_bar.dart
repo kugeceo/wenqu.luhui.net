@@ -10,7 +10,7 @@ class ToggleBorderBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(8, 6, 8, 6),
+      padding: const EdgeInsets.fromLTRB(8, 4, 0, 4),
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,  // 使用 Scaffold 的默认背景色
         border: Border(

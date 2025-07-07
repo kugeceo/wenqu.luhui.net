@@ -29,8 +29,9 @@ class SVGAViewModel extends ChangeNotifier {
   int _frameWidth = 0;
   int _frameHeight = 0;
   Color _previewBackgroundColor = Colors.transparent;
-  bool _showBorder = true;  // 添加边框显示状态
+  bool _showBorder = true;  // 是否显示边框
   DisplayMode _mode = DisplayMode.showAll;
+  bool _allowDrawingOverflow = true; // 是否允许绘制溢出
 
   List<File> get frames => _frames;
   int get currentFrameIndex => _currentFrameIndex;
@@ -47,6 +48,7 @@ class SVGAViewModel extends ChangeNotifier {
   Color get previewBackgroundColor => _previewBackgroundColor;
   bool get showBorder => _showBorder;
   DisplayMode get mode => _mode;
+  bool get allowDrawingOverflow => _allowDrawingOverflow;
 
   // 从缓存加载排版模式
   Future<void> loadModeFromCache() async {
@@ -211,5 +213,10 @@ class SVGAViewModel extends ChangeNotifier {
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_mode_key, mode.name);
+  }
+
+  void setAllowDrawingOverflow(bool value) {
+    _allowDrawingOverflow = value;
+    notifyListeners();
   }
 } 

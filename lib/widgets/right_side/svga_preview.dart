@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:svga_previewer/view_models/svga_view_model.dart';
 import 'package:svgaplayer_flutter/svgaplayer_flutter.dart';
 import 'dart:io';
 
 class SVGAPreview extends StatefulWidget {
   final SVGAAnimationController controller;
   final File file;
+  final Size preferredSize;
   
-  const SVGAPreview({super.key, required this.controller, required this.file});
+  const SVGAPreview({super.key, required this.controller, required this.file, required this.preferredSize});
   
   @override
   State<SVGAPreview> createState() => _SVGAPreviewState();
@@ -24,7 +27,10 @@ class _SVGAPreviewState extends State<SVGAPreview> {
   void didUpdateWidget(SVGAPreview oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.file.path != widget.file.path) {
+      print("SVGAPreview didUpdateWidget: SVGA文件【已】变化");
       _loadSVGA();
+    } else {
+      print("SVGAPreview didUpdateWidget: SVGA文件【未】变化");
     }
   }
   
@@ -56,14 +62,25 @@ class _SVGAPreviewState extends State<SVGAPreview> {
   
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SVGAImage(
-          widget.controller, 
-          filterQuality: FilterQuality.high,
-          preferredSize: Size(constraints.maxWidth, constraints.maxHeight),
+    return Consumer<SVGAViewModel>(
+      builder: (context, viewModel, child) {
+        return Container(
+          width: widget.preferredSize.width,
+          height: widget.preferredSize.height,
+          decoration: BoxDecoration(
+            color: viewModel.previewBackgroundColor,
+            borderRadius: viewModel.showBorder ? BorderRadius.circular(6) : null,
+          ),
+          clipBehavior: viewModel.allowDrawingOverflow ? Clip.none : Clip.hardEdge,
+          child: SVGAImage(
+            widget.controller, 
+            fit: BoxFit.contain,
+            filterQuality: FilterQuality.high, 
+            // allowDrawingOverflow: viewModel.allowDrawingOverflow,
+            preferredSize: widget.preferredSize,
+          ),
         );
-      },
+      }
     );
   }
 } 
