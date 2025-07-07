@@ -1,6 +1,8 @@
 # SVGA Previewer
 
-一款可快速预览SVGA的桌面小工具。
+![icon](https://github.com/Rogue24/JPCover/raw/master/AnimationPreviewer/icon.png) 一款可快速预览SVGA的桌面小工具。
+
+支持[App Store](https://apps.apple.com/cn/app/svga-previewer/id6742708146?mt=12)下载。
 
 ![example](https://github.com/Rogue24/JPCover/raw/master/svga_previewer/example.gif)
 
