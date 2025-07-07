@@ -1,8 +1,6 @@
 # SVGA Previewer
 
-![icon](https://github.com/Rogue24/JPCover/raw/master/svga_previewer/icon.png) 一款可快速预览**SVGA**的桌面小工具
-
-🌟目前已上架**App Store**，需要的话可[前往下载](https://apps.apple.com/cn/app/svga-previewer/id6742708146?mt=12)。
+![icon](https://github.com/Rogue24/JPCover/raw/master/svga_previewer/icon.png) 一款可快速预览**SVGA**的桌面小工具 - 🌟目前已上架**App Store**，需要的话可[前往下载](https://apps.apple.com/cn/app/svga-previewer/id6742708146?mt=12)
 
 ![example](https://github.com/Rogue24/JPCover/raw/master/svga_previewer/example.gif)
 
