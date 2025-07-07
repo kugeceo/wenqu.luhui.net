@@ -1,10 +1,10 @@
 # SVGA Previewer
 
-![icon](https://github.com/Rogue24/JPCover/raw/master/svga-previewer/icon.png) 一款可快速预览**SVGA**的桌面小工具。
+![icon](https://github.com/Rogue24/JPCover/raw/master/svga_previewer/icon.png) 一款可快速预览**SVGA**的桌面小工具 ✨目前已上架**App Store**，需要的话可[前往下载](https://apps.apple.com/cn/app/svga-previewer/id6742708146?mt=12)。
 
 ![example](https://github.com/Rogue24/JPCover/raw/master/svga_previewer/example.gif)
 
-前期使用`Flutter`+`Cursor`开发，主要支持MacOS平台，目前已上架**App Store**，需要的话可[前往下载](https://apps.apple.com/cn/app/svga-previewer/id6742708146?mt=12)。
+前期使用`Flutter`+`Cursor`开发，主要支持MacOS平台。
 
     Feature:
         ✅ 可预览SVGA动画及其内置图片；
