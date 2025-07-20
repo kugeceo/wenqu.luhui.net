@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false, // 是否显示右上角的debug图标
       title: 'SVGA预览器',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
         brightness: Brightness.dark, // 使用深色主题
       ),
       home: const MyHomePage(),

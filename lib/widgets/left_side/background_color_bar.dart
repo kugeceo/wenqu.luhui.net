@@ -48,9 +48,9 @@ class BackgroundColorBar extends StatelessWidget {
                 onTap: () => viewModel.setPreviewBackgroundColor(Colors.grey),
               ),
               _ColorButton(
-                color: Colors.blue,
-                isSelected: viewModel.previewBackgroundColor == Colors.blue,
-                onTap: () => viewModel.setPreviewBackgroundColor(Colors.blue),
+                color: Colors.deepPurpleAccent,
+                isSelected: viewModel.previewBackgroundColor == Colors.deepPurpleAccent,
+                onTap: () => viewModel.setPreviewBackgroundColor(Colors.deepPurpleAccent),
               ),
             ],
           ),
@@ -82,7 +82,7 @@ class _ColorButton extends StatelessWidget {
           color: color,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected ? Colors.blue.shade300 : Colors.grey.shade800,
+            color: isSelected ? Colors.deepPurpleAccent.shade100 : Colors.grey.shade800,
             width: isSelected ? 3 : 2,
           ),
         ),

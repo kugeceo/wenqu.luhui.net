@@ -60,7 +60,7 @@ class SVGAControlBar extends StatelessWidget {
                 animation: controller,
                 builder: (context, child) {
                   return Slider(
-                    activeColor: Colors.blue.shade200,
+                    activeColor: Colors.deepPurpleAccent.shade200,
                     min: 0,
                     max: controller.frames.toDouble(),
                     value: controller.currentFrame.toDouble(),
@@ -89,7 +89,7 @@ class SVGAControlBar extends StatelessWidget {
                     child: CupertinoSwitch(
                       value: viewModel.allowDrawingOverflow,
                       onChanged: viewModel.setAllowDrawingOverflow,
-                      activeColor: Colors.blue.shade200,
+                      activeColor: Colors.deepPurpleAccent.shade200,
                     ),
                   ),
                 ],
@@ -134,7 +134,7 @@ class __PlayButtonState extends State<_PlayButton> {
       width: 28,
       height: 20,
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: Colors.deepPurpleAccent,
         borderRadius: BorderRadius.circular(4),
       ),
       child: AnimatedBuilder(

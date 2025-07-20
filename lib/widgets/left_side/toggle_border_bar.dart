@@ -29,7 +29,7 @@ class ToggleBorderBar extends StatelessWidget {
             child: CupertinoSwitch(
               value: viewModel.showBorder,
               onChanged: viewModel.setShowBorder,
-              activeColor: Colors.blue.shade200,
+              activeColor: Colors.deepPurpleAccent.shade200,
             ),
           ),
         ],

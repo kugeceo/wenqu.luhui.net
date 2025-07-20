@@ -96,7 +96,7 @@ class _ModeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color color = isSelected ? Colors.blue.shade200 : Colors.grey.shade800;
+    Color color = isSelected ? Colors.deepPurpleAccent.shade200 : Colors.grey.shade800;
 
     IconData? icon;
     switch (mode) {
