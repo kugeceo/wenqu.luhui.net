@@ -24,12 +24,12 @@ class FramesList extends StatelessWidget {
           onTap: () => viewModel.setCurrentFrameIndex(index),
           child: Container(
             decoration: BoxDecoration(
-              border: Border.all(
-                color: index == viewModel.currentFrameIndex
-                    ? Theme.of(context).primaryColor
-                    : Colors.grey.shade800,
-                width: 2,
-              ),
+              border: index == viewModel.currentFrameIndex
+                  ? Border.all(
+                      color: Colors.deepPurpleAccent.shade200,
+                      width: 2,
+                    )
+                  : null,
               borderRadius: BorderRadius.circular(4),
             ),
             child: Column(
