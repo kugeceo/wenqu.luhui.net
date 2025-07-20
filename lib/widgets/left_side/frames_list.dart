@@ -15,10 +15,11 @@ class FramesList extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,
-        childAspectRatio: 1,
+        childAspectRatio: 0.8, // 调整比例以容纳更多文字信息
       ),
       itemCount: viewModel.frames.length,
       itemBuilder: (context, index) {
+        final frameInfo = viewModel.frameInfos.isNotEmpty ? viewModel.frameInfos[index] : null;
         return InkWell(
           onTap: () => viewModel.setCurrentFrameIndex(index),
           child: Container(
@@ -46,10 +47,22 @@ class FramesList extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(4),
                   color: Colors.black45,
-                  child: Text(
-                    '图 ${index + 1}',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 12),
+                  child: Column(
+                    children: [
+                      Text(
+                        '图 ${index + 1}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 12),
+                      ),
+                      if (frameInfo != null) ...[
+                        const SizedBox(height: 2),
+                        Text(
+                          frameInfo.fileSizeText,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 10, color: Colors.orange),
+                        ),
+                      ],
+                    ],
                   ),
                 ),
               ],

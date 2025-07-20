@@ -37,6 +37,7 @@ class FramePreview extends StatelessWidget {
                       ),
               ),
             ),
+            
             if (viewModel.currentFrame != null)
               Positioned(
                 left: 0,
@@ -44,12 +45,8 @@ class FramePreview extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(8),
                   color: Colors.black45,
-                  child: FutureBuilder<ui.Image>(
-                    future: viewModel.currentFrame!.readAsBytes().then((bytes) => decodeImageFromList(bytes)),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        final image = snapshot.data!;
-                        return Column(
+                  child: viewModel.currentFrameInfo != null
+                      ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -62,18 +59,52 @@ class FramePreview extends StatelessWidget {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              '图片: ${viewModel.currentFrameIndex + 1}  •  尺寸: ${image.width} × ${image.height}',
+                              '图片: ${viewModel.currentFrameIndex + 1}  •  尺寸: ${viewModel.currentFrameInfo!.width} × ${viewModel.currentFrameInfo!.height}',
                               style: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 12,
                               ),
                             ),
+                            const SizedBox(height: 2),
+                            Text(
+                              '文件大小: ${viewModel.currentFrameInfo!.fileSizeText}  •  内存: ${viewModel.currentFrameInfo!.memoryUsageMB.toStringAsFixed(2)}MB',
+                              style: const TextStyle(
+                                color: Colors.orange,
+                                fontSize: 11,
+                              ),
+                            ),
                           ],
-                        );
-                      }
-                      return const SizedBox();
-                    },
-                  ),
+                        )
+                      : FutureBuilder<ui.Image>(
+                          future: viewModel.currentFrame!.readAsBytes().then((bytes) => decodeImageFromList(bytes)),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              final image = snapshot.data!;
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    viewModel.currentFrame!.uri.pathSegments.last,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    '图片: ${viewModel.currentFrameIndex + 1}  •  尺寸: ${image.width} × ${image.height}',
+                                    style: const TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }
+                            return const SizedBox();
+                          },
+                        ),
                 ),
               ),
           ],

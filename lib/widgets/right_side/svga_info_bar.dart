@@ -30,6 +30,11 @@ class SVGAInfoBar extends StatelessWidget {
                       _infoText(viewModel),
                       style: const TextStyle(color: Colors.grey, fontSize: 12,),
                     ),
+                    const SizedBox(height: 2),
+                    Text(
+                      _fileSizeText(viewModel),
+                      style: const TextStyle(color: Colors.orange, fontSize: 11,),
+                    ),
                   ],
                 ),
               ),
@@ -47,6 +52,10 @@ class SVGAInfoBar extends StatelessWidget {
 
   String _infoText(SVGAViewModel viewModel) {
     return '帧率: ${viewModel.fps.toStringAsFixed(1)} FPS  •  时长: ${viewModel.duration.toStringAsFixed(2)}秒  •  内存: ${viewModel.memoryUsage.toStringAsFixed(1)}MB •  分辨率: ${viewModel.frameWidth}x${viewModel.frameHeight}';
+  }
+
+  String _fileSizeText(SVGAViewModel viewModel) {
+    return 'SVGA文件: ${viewModel.svgaFileSizeText}  •  临时文件: ${viewModel.totalFileSizeMB.toStringAsFixed(1)}MB';
   }
 
   String _totalFramesText(SVGAViewModel viewModel) {
