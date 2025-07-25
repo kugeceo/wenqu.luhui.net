@@ -45,16 +45,16 @@ class SVGAViewModel extends ChangeNotifier {
   static const _mode_key = 'user_mode';
 
   List<File> _frames = [];
-  List<FrameInfo> _frameInfos = []; // 新增：帧信息列表
+  List<FrameInfo> _frameInfos = []; // 帧信息列表
   int _currentFrameIndex = 0;
   bool _isDragging = false;
   File? _svgaFile;
   String? _currentFileName;
-  int _svgaFileSizeBytes = 0; // 新增：SVGA文件大小
+  int _svgaFileSizeBytes = 0; // SVGA文件大小
   double _fps = 0;  
   double _duration = 0;  
   double _memoryUsage = 0;  
-  double _totalFileSizeMB = 0; // 新增：临时文件总大小
+  double _totalFileSizeMB = 0; // 临时文件总大小
   int _totalFrames = 0;
   int _frameWidth = 0;
   int _frameHeight = 0;
@@ -64,15 +64,15 @@ class SVGAViewModel extends ChangeNotifier {
   bool _allowDrawingOverflow = true; // 是否允许绘制溢出
 
   List<File> get frames => _frames;
-  List<FrameInfo> get frameInfos => _frameInfos; // 新增
+  List<FrameInfo> get frameInfos => _frameInfos;
   int get currentFrameIndex => _currentFrameIndex;
   bool get isDragging => _isDragging;
   File? get currentFrame => _frames.isNotEmpty ? _frames[_currentFrameIndex] : null;
-  FrameInfo? get currentFrameInfo => _frameInfos.isNotEmpty ? _frameInfos[_currentFrameIndex] : null; // 新增
+  FrameInfo? get currentFrameInfo => _frameInfos.isNotEmpty ? _frameInfos[_currentFrameIndex] : null;
   File? get svgaFile => _svgaFile;
   String? get currentFileName => _currentFileName;
-  int get svgaFileSizeBytes => _svgaFileSizeBytes; // 新增
-  String get svgaFileSizeText { // 新增
+  int get svgaFileSizeBytes => _svgaFileSizeBytes;
+  String get svgaFileSizeText {
     if (_svgaFileSizeBytes < 1024) {
       return '${_svgaFileSizeBytes}B';
     } else if (_svgaFileSizeBytes < 1024 * 1024) {
@@ -84,7 +84,7 @@ class SVGAViewModel extends ChangeNotifier {
   double get fps => _fps;
   double get duration => _duration;
   double get memoryUsage => _memoryUsage;
-  double get totalFileSizeMB => _totalFileSizeMB; // 新增
+  double get totalFileSizeMB => _totalFileSizeMB;
   int get totalFrames => _totalFrames;
   int get frameWidth => _frameWidth;
   int get frameHeight => _frameHeight;
@@ -108,15 +108,15 @@ class SVGAViewModel extends ChangeNotifier {
   Future<void> clearState() async {
     print('开始清理状态...');
     _frames.clear();
-    _frameInfos.clear(); // 新增
+    _frameInfos.clear();
     _currentFrameIndex = 0;
     _svgaFile = null;
     _currentFileName = null;
-    _svgaFileSizeBytes = 0; // 新增
+    _svgaFileSizeBytes = 0;
     _fps = 0;
     _duration = 0;
     _memoryUsage = 0;
-    _totalFileSizeMB = 0; // 新增
+    _totalFileSizeMB = 0;
     _totalFrames = 0;
     print('内存状态已清理');
     
@@ -159,7 +159,7 @@ class SVGAViewModel extends ChangeNotifier {
 
       _currentFileName = path.basename(filePath);
       
-      // 新增：获取SVGA文件大小
+      // 获取SVGA文件大小
       _svgaFile = File(filePath);
       if (_svgaFile != null && await _svgaFile!.exists()) {
          _svgaFileSizeBytes = await _svgaFile!.length();
@@ -196,8 +196,8 @@ class SVGAViewModel extends ChangeNotifier {
       _frameHeight = videoItem.params.viewBoxHeight.toInt();
 
       final List<File> tempFrames = [];
-      final List<FrameInfo> tempFrameInfos = []; // 新增
-      double totalFileSizeBytes = 0; // 新增
+      final List<FrameInfo> tempFrameInfos = [];
+      double totalFileSizeBytes = 0;
 
       print('开始提取帧图片，总数：${images.length}');
       var index = 0;
@@ -226,7 +226,7 @@ class SVGAViewModel extends ChangeNotifier {
               if (await frameFile.exists()) {
                 tempFrames.add(frameFile);
                 
-                // 新增：创建帧信息
+                // 创建帧信息
                 final frameInfo = FrameInfo(
                   file: frameFile,
                   fileSizeBytes: fileSizeBytes,
@@ -252,7 +252,7 @@ class SVGAViewModel extends ChangeNotifier {
         print('未能从SVGA文件中提取到任何图片');
       } else {
         print('成功提取了 ${tempFrames.length} 帧图片');
-        _totalFileSizeMB = totalFileSizeBytes / (1024 * 1024); // 新增
+        _totalFileSizeMB = totalFileSizeBytes / (1024 * 1024);
         print('临时文件总大小: ${_totalFileSizeMB.toStringAsFixed(1)} MB');
       }
       imageCache.clear();
@@ -260,7 +260,7 @@ class SVGAViewModel extends ChangeNotifier {
       print('再次清空图片缓存');
       
       _frames = List.from(tempFrames);
-      _frameInfos = List.from(tempFrameInfos); // 新增
+      _frameInfos = List.from(tempFrameInfos);
       _currentFrameIndex = 0;
       print('帧数组已更新，长度: ${_frames.length}');
       
