@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50" height="50">
+  <!-- 定义渐变和滤镜 -->
+  <defs>
+    <linearGradient id="bgGradientSmall" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f9a8d4" />
+      <stop offset="100%" stop-color="#c4b5fd" />
+    </linearGradient>
+    
+    <linearGradient id="brushGradientSmall" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ec4899" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 圆形背景 -->
+  <circle cx="25" cy="25" r="24" fill="white" stroke="url(#bgGradientSmall)" stroke-width="2" />
+  
+  <!-- 简化的画笔图形 -->
+  <g transform="translate(25, 20) rotate(-30) scale(0.15)">
+    <!-- 画笔主体 -->
+    <rect x="-15" y="-90" width="30" height="160" rx="15" fill="url(#brushGradientSmall)" />
+    
+    <!-- 画笔尖端 -->
+    <path d="M -15,-90 Q 0,-120 15,-90" fill="url(#brushGradientSmall)" />
+  </g>
+  
+  <!-- 简化的曲线文字路径 -->
+  <path d="M 15,30 Q 25,20 35,30" fill="none" stroke="url(#brushGradientSmall)" stroke-width="1.5" stroke-linecap="round" />
+  
+  <!-- 装饰性的点 -->
+  <circle cx="15" cy="30" r="1.5" fill="#ec4899" />
+  <circle cx="35" cy="30" r="1.5" fill="#8b5cf6" />
+</svg> 

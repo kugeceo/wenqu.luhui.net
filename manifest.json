@@ -1,0 +1,35 @@
+{
+    "name": "luhui_Curved_Text_Drawer",
+    "short_name": "luhui_Curved_Text_Drawing_Design_Tool",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "鲁虺曲线文字绘制设计工具：luhui Curved Text Drawing Design Tool",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "favicon-16x16.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "favicon-32x32.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "favicon-16x16.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "favicon-32x32.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
